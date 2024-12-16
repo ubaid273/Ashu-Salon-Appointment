@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Ashu Salon Appointment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00796b;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #00796b;
+        }
+
+        #confirmation-message {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #00796b;
+        }
+
+        #print-button {
+            margin-top: 20px;
+            background-color: #00796b;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #print-button:hover {
+            background-color: #00796b;
+        }
+
+        #service-price {
+            font-weight: bold;
+            color: #00796b;
+            margin-top: 10px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container, #confirmation-message {
+                display: none;
+            }
+
+            .printable-content {
+                text-align: center;
+                font-family: Arial, sans-serif;
+                padding: 20px;
+            }
+
+            .printable-content h2 {
+                font-size: 24px;
+                color: #00796b;
+            }
+
+            .printable-content p {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+
+            .printable-content strong {
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ashu Salon Appointment</h1>
+        <form id="appointment-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="service">Select Service:</label>
+            <select id="service" name="service" required>
+                <option value="Haircut" data-price="250">Haircut - 250</option>
+                <option value="Stepcut" data-price="500">Stepcut - 500</option>
+                <option value="Statner" data-price="300">Statner - 300</option>
+                <option value="Coloring Striking" data-price="3500">Coloring Striking- 100</option>
+                <option value="Keratin" data-price="5000">Keratin - 5000</option>
+                <option value="Remonding" data-price="8000">Remonding - 8000</option>
+                <option value="Hair Styling" data-price="300">Hair Styling - 300</option>
+                <option value="Eyebrow" data-price="100">Eyebrow - 100</option>
+                <option value="Uper Lips For Hade" data-price="50">Uper Lips For Hade - 50</option>
+                <option value="Face wax" data-price="500">Face wax - 500</option>
+                <option value="Hand and leg" data-price="800">Hand and leg - 800</option>
+                <option value="Full Body" data-price="2000">Full Body - 2000</option>
+                <option value="Party Makeup" data-price="1000">Party Makeup - 1000</option>
+                <option value="Model Makeup" data-price="2000">Model Makeup - 2000</option>
+                <option value="Mehndi Makeup" data-price="3000">Mehndi Makeup - 3000</option>
+                <option value="Nikah Makeup" data-price="3500">Nikah Makeup- 3500</option>
+                <option value="Bridal Makeup" data-price="8000">Bridal Makeup- 8000</option>
+                <option value="Walima Makeup" data-price="6000">Walima Makeup - 6000</option>
+                <option value="Manicure Pedicure" data-price="1000">Manicure Pedicure - 1000</option>
+                <option value="Manicure Pedicure" data-price="2000">Manicure Pedicure - 2000</option>
+                <option value="Bleach" data-price="250">Bleach - 250</option>
+                <option value="Skin Polish" data-price="300">Skin Polish - 300</option>
+                <option value="Facial" data-price="800">Facial - 800</option>
+                <option value="Facial Sheet Mask" data-price="1300">Facial Sheet mask - 1300</option>
+                <option value="Hydra Facial" data-price="3000">Hydra Facial- 3000</option>
+                <option value="Face Cleansing" data-price="100">Face Cleansing - 100</option>
+                
+                            </select>
+
+            <div id="service-price"></div> <!-- Price display area -->
+
+            <label for="appointment-date">Choose a Date:</label>
+            <input type="date" id="appointment-date" name="appointment-date" required>
+
+            <label for="appointment-time">Choose a Time:</label>
+            <input type="time" id="appointment-time" name="appointment-time" required>
+
+            <button type="submit">Book Appointment</button>
+        </form>
+
+        <div id="confirmation-message"></div>
+        <button id="print-button" style="display:none;">Print Confirmation</button>
+    </div>
+
+    <!-- Print version (hidden from regular view) -->
+    <div id="printable-area" style="display:none;"></div>
+
+    <script>
+        document.getElementById('appointment-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+    
+            // Get values from the form
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const appointmentDate = document.getElementById('appointment-date').value;
+            const appointmentTime = document.getElementById('appointment-time').value;
+            const servicePrice = document.getElementById('service').selectedOptions[0].getAttribute('data-price'); // Get the price for the selected service
+    
+            // Show confirmation message with PKR
+            const confirmationMessage = ` 
+                <h1>ASHU BEAUTY SALON</h1>
+                <h2>Appointment Confirmed!</h2>
+                <p>Thank you for booking with <strong>Ashu Salon</strong>, ${name}. Your appointment has been confirmed.</p>
+                <p><strong>Service:</strong> ${service}</p>
+                <p><strong>Price:</strong> Rs. ${servicePrice}</p>
+                <p><strong>Date:</strong> ${appointmentDate}</p>
+                <p><strong>Time:</strong> ${appointmentTime}</p>
+                <p><strong>Contact:</strong> ${phone}</p>
+            `;
+            document.getElementById('confirmation-message').innerHTML = confirmationMessage;
+    
+            // Create a printable version of the confirmation message with PKR
+            const printableContent = ` 
+                <div class="printable-content">
+                    <h1>ASHU BEAUTY SALON</h1>
+                    <h2>Appointment Confirmed!</h2>
+                    <p><strong>Thank you for booking with, ${name}!</strong></p>
+                    <p>Your appointment has been confirmed:</p>
+                    <p><strong>Service:</strong> ${service}</p>
+                    <p><strong>Price:</strong> Rs. ${servicePrice}</p>
+                    <p><strong>Date:</strong> ${appointmentDate}</p>
+                    <p><strong>Time:</strong> ${appointmentTime}</p>
+                    <p><strong>Contact:</strong> ${phone}</p>
+                </div>
+            `;
+            document.getElementById('printable-area').innerHTML = printableContent;
+    
+            // Show print button
+            document.getElementById('print-button').style.display = 'block';
+    
+            // Clear the form
+            document.getElementById('appointment-form').reset();
+        });
+    
+        // Show price when service is selected
+        document.getElementById('service').addEventListener('change', function() {
+            const selectedService = this.options[this.selectedIndex];
+            const servicePrice = selectedService.getAttribute('data-price');
+            document.getElementById('service-price').textContent = `Price: Rs. ${servicePrice}`;
+        });
+    
+        // Trigger price display on page load
+        document.getElementById('service').dispatchEvent(new Event('change'));
+        
+        // Print function
+        document.getElementById('print-button').addEventListener('click', function() {
+            const printContent = document.getElementById('printable-area').innerHTML;
+            const originalContent = document.body.innerHTML;
+    
+            document.body.innerHTML = printContent; // Replace body content with printable content
+    
+            window.print(); // Trigger the print dialog
+    
+            document.body.innerHTML = originalContent; // Restore the original content after printing
+            window.location.reload(); // Reload page to reset state (optional)
+        });
+    </script>
+</body>
+</html>
+
+
